@@ -1,0 +1,28 @@
+{
+    "name": "arisro/behat-lumen-extension",
+    "version": "dev-master",
+    "type": "behat-extension",
+    "description": "Lumen extension for Behat",
+    "keywords": ["lumen", "behat", "extension", "bdd"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aris Buzachis",
+            "email": "buzachis.aris@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Arisro\\Behat\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.4",
+        "behat/behat": "~3.0",
+        "behat/mink-browserkit-driver": "~1.2"
+    },
+    "require-dev": {
+        "symfony/symfony": "~2.6",
+        "behat/mink-extension": "~2.0"
+    }
+}
