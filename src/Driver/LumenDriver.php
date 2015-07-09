@@ -6,7 +6,7 @@ use Behat\Mink\Driver\BrowserKitDriver;
 use Symfony\Component\HttpKernel\Client;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class KernelDriver extends BrowserKitDriver
+class LumenDriver extends BrowserKitDriver
 {
 
     /**
@@ -24,7 +24,7 @@ class KernelDriver extends BrowserKitDriver
      * Refresh the driver.
      *
      * @param HttpKernelInterface $app
-     * @return KernelDriver
+     * @return LumenDriver
      */
     public function reboot($app)
     {

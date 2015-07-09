@@ -41,7 +41,7 @@ class LumenFactory implements DriverFactory
     {
         $this->assertBrowserkitIsAvailable();
 
-        return new Definition('Arisro\Behat\Driver\KernelDriver', [
+        return new Definition('Arisro\Behat\Driver\LumenDriver', [
             new Reference('lumen.app'),
             '%mink.base_url%'
         ]);
