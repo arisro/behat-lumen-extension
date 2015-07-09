@@ -1,6 +1,5 @@
 {
     "name": "arisro/behat-lumen-extension",
-    "version": "dev-master",
     "type": "behat-extension",
     "description": "Lumen extension for Behat",
     "keywords": ["lumen", "behat", "extension", "bdd"],
