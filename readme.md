@@ -22,7 +22,7 @@ Next, within your project root, create a `behat.yml` file, and add:
 default:
     extensions:
         Arisro\Behat\ServiceContainer\LumenExtension:
-            # env_path: .env.behat
+            # env_file: .env.behat
         Behat\MinkExtension:
             default_session: lumen
             lumen: ~
