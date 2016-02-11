@@ -18,20 +18,27 @@ This will give us access to Behat, Mink, and, of course, the Lumen extension.
 
 Next, within your project root, create a `behat.yml` file, and add:
 
-```
+```yml
 default:
-    extensions:
-        Arisro\Behat\ServiceContainer\LumenExtension:
-            # env_file: .env.behat
-        Behat\MinkExtension:
-            default_session: lumen
-            lumen: ~
+  autoload: [ %paths.base%/tests/functional/contexts ]
+  extensions:
+    Arisro\Behat\ServiceContainer\LumenExtension:
+      # env_file: .env.behat
+    Behat\MinkExtension:
+      default_session: lumen
+      lumen: ~
+  suites:
+    default:
+      paths: [ %paths.base%/tests/functional/features ]
+      filters:
+      contexts:
+        - FeatureContext
 ```
 
 Optinally, you can specify a different .env file for your functional tests (with a test DB for example).
 
 # 3. Write Some Features
 
-You can check this page for a short guide through Behat and Mink.
+You have a very small example here https://github.com/arisro/behat-lumen-example.
 
-> Note: if you want to leverage some of the Mink helpers in your `FeatureContext` file, then be sure to extend `Behat\MinkExtension\Context\MinkContext`.
+Note: if you want to leverage some of the Mink helpers in your `FeatureContext` file, then be sure to extend `Behat\MinkExtension\Context\MinkContext`.
