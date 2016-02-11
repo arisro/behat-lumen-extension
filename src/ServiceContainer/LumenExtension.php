@@ -67,13 +67,12 @@ class LumenExtension implements Extension
      * Boot up Lumen.
      *
      * @param ContainerBuilder $container
-     * @param array            $config
+     * @param array $config
      * @return mixed
      */
     private function loadLumen(ContainerBuilder $container, array $config)
     {
         $lumen = new LumenBooter($container->getParameter('paths.base'), $config['env_file']);
-
         $container->set('lumen.app', $app = $lumen->boot());
 
         return $app;
@@ -82,17 +81,16 @@ class LumenExtension implements Extension
     /**
      * Load the initializer.
      *
-     * @param ContainerBuilder    $container
-     * @param HttpKernelInterface $app
+     * @param ContainerBuilder $container
+     * @param \Illuminate\Container\Container $app
      */
     private function loadInitializer(ContainerBuilder $container, $app)
     {
-        $definition = new Definition('Arisro\Behat\Context\KernelAwareInitializer', [$app]);
+        $definition = new Definition('Arisro\Behat\Context\ApplicationAwareInitializer', [$app]);
 
         $definition->addTag(EventDispatcherExtension::SUBSCRIBER_TAG, ['priority' => 0]);
         $definition->addTag(ContextExtension::INITIALIZER_TAG, ['priority' => 0]);
 
         $container->setDefinition('lumen.initializer', $definition);
     }
-
 }

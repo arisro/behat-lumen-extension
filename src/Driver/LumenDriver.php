@@ -3,32 +3,29 @@
 namespace Arisro\Behat\Driver;
 
 use Behat\Mink\Driver\BrowserKitDriver;
-use Symfony\Component\HttpKernel\Client;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Laravel\Lumen\Application;
 
 class LumenDriver extends BrowserKitDriver
 {
-
     /**
-     * Create a new KernelDriver.
+     * Create a new Driver.
      *
-     * @param HttpKernelInterface $app
-     * @param string|null         $baseUrl
+     * @param Application $app
+     * @param string|null $baseUrl
      */
-    public function __construct(HttpKernelInterface $app, $baseUrl = null)
+    public function __construct(Application $app, $baseUrl = null)
     {
-        parent::__construct(new Client($app), $baseUrl);
+        parent::__construct(new LumenClient($app), $baseUrl);
     }
 
     /**
      * Refresh the driver.
      *
-     * @param HttpKernelInterface $app
+     * @param Application $app
      * @return LumenDriver
      */
     public function reboot($app)
     {
-        return $this->__construct($app);
+        return self::__construct($app);
     }
-
 }

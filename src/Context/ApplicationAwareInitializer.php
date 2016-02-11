@@ -6,18 +6,19 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\Initializer\ContextInitializer;
 use Behat\Behat\EventDispatcher\Event\ScenarioTested;
 use Arisro\Behat\ServiceContainer\LumenBooter;
+use Illuminate\Support\Facades\Facade;
+use Laravel\Lumen\Application;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class KernelAwareInitializer implements EventSubscriberInterface, ContextInitializer
+class ApplicationAwareInitializer implements EventSubscriberInterface, ContextInitializer
 {
 
     /**
      * The app kernel.
      *
-     * @var HttpKernelInterface
+     * @var Application
      */
-    private $kernel;
+    private $app;
 
     /**
      * The Behat context.
@@ -29,11 +30,11 @@ class KernelAwareInitializer implements EventSubscriberInterface, ContextInitial
     /**
      * Construct the initializer.
      *
-     * @param HttpKernelInterface $kernel
+     * @param Application $app
      */
-    public function __construct(HttpKernelInterface $kernel)
+    public function __construct(Application $app)
     {
-        $this->kernel = $kernel;
+        $this->app = $app;
     }
 
     /**
@@ -42,7 +43,7 @@ class KernelAwareInitializer implements EventSubscriberInterface, ContextInitial
     public static function getSubscribedEvents()
     {
         return [
-            ScenarioTested::AFTER => ['rebootKernel', -15]
+            ScenarioTested::AFTER => ['reboot', -15]
         ];
     }
 
@@ -52,8 +53,7 @@ class KernelAwareInitializer implements EventSubscriberInterface, ContextInitial
     public function initializeContext(Context $context)
     {
         $this->context = $context;
-
-        $this->setAppOnContext($this->kernel);
+        $this->setAppOnContext();
     }
 
     /**
@@ -61,23 +61,20 @@ class KernelAwareInitializer implements EventSubscriberInterface, ContextInitial
      */
     private function setAppOnContext()
     {
-        if ($this->context instanceof KernelAwareContext) {
-            $this->context->setApp($this->kernel);
+        if ($this->context instanceof ApplicationAwareContext) {
+            $this->context->setApp($this->app);
         }
     }
 
     /**
      * After each scenario, reboot the kernel.
      */
-    public function rebootKernel()
+    public function reboot()
     {
-        $this->kernel->flush();
+        Facade::clearResolvedInstances();
 
-        $laravel = new LumenBooter($this->kernel->basePath());
-
-        $this->context->getSession('lumen')->getDriver()->reboot($this->kernel = $laravel->boot());
-
+        $lumen = new LumenBooter($this->app->basePath());
+        $this->context->getSession('lumen')->getDriver()->reboot($this->app = $lumen->boot());
         $this->setAppOnContext();
     }
-
 }

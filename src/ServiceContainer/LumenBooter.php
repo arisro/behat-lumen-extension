@@ -6,7 +6,6 @@ use RuntimeException;
 
 class LumenBooter
 {
-
     /**
      * The base path for the application.
      *
@@ -24,7 +23,7 @@ class LumenBooter
     /**
      * Create a new Lumen booter instance.
      *
-     * @param        $basePath
+     * @param string $basePath
      * @param string $environmentFile
      */
     public function __construct($basePath, $environmentFile = '.env')
@@ -46,20 +45,16 @@ class LumenBooter
     /**
      * Boot the app.
      *
-     * @return mixed
+     * @return \Illuminate\Container\Container
      */
     public function boot()
     {
         $bootstrapPath = $this->basePath() . '/bootstrap/app.php';
-
         $this->assertBootstrapFileExists($bootstrapPath);
 
         global $dotEnvFile;
         $dotEnvFile = $this->environmentFile;
-
         $app = require $bootstrapPath;
-
-        $app->make('Illuminate\Http\Request')->capture();
 
         return $app;
     }
@@ -72,9 +67,8 @@ class LumenBooter
      */
     private function assertBootstrapFileExists($bootstrapPath)
     {
-        if ( ! file_exists($bootstrapPath)) {
+        if (!file_exists($bootstrapPath)) {
             throw new RuntimeException('Could not locate the path to the Laravel bootstrap file.');
         }
     }
-
 }
