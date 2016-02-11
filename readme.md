@@ -1,3 +1,5 @@
+## This version (v2.0.0) is compatible with Lumen 5.2; for older versions use v1.0.0.
+
 This is an adaptation for Lumen of the Laravel Behat Extension package (https://github.com/laracasts/Behat-Laravel-Extension).
 
 It's a custom Behat / Mink driver which extends the BrowserKit driver.
@@ -13,6 +15,16 @@ As always, we need to pull in some dependencies through Composer.
     composer require behat/behat behat/mink behat/mink-extension arisro/behat-lumen-extension --dev
 
 This will give us access to Behat, Mink, and, of course, the Lumen extension.
+
+If you want to use a custom .env file for the Behat tests you will need to modify `bootstrap/app.php` like this:
+
+```php
+try {
+    (new Dotenv\Dotenv(__DIR__.'/../', isset($dotEnvFile) ?: '.env'))->load();
+} catch (Dotenv\Exception\InvalidPathException $e) {
+    //
+}
+```
 
 # 2. Create the behat.yml configuration file
 
