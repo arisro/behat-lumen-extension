@@ -27,13 +27,6 @@ class LumenClient extends BaseClient
      */
     protected $app;
 
-    /**
-     * The last response returned by the application.
-     *
-     * @var \Illuminate\Http\Response
-     */
-    protected $response;
-
     public function __construct(Container $app, array $server = array(), History $history = null, CookieJar $cookieJar = null)
     {
         $this->app = $app;
