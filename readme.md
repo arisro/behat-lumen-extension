@@ -1,4 +1,4 @@
-## This version (v2.0.0) is compatible with Lumen 5.2; for older versions use v1.0.0.
+## This version (v2.0.1) is compatible with Lumen 5.2; for older versions use v1.0.0.
 
 This is an adaptation for Lumen of the Laravel Behat Extension package (https://github.com/laracasts/Behat-Laravel-Extension).
 
