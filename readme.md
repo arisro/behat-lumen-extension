@@ -47,7 +47,7 @@ default:
         - FeatureContext
 ```
 
-Optinally, you can specify a different .env file for your functional tests (with a test DB for example).
+Optionally, you can specify a different .env file for your functional tests (with a test DB for example).
 
 # 3. Write Some Features
 
