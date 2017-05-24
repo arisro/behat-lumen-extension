@@ -20,7 +20,7 @@ If you want to use a custom .env file for the Behat tests you will need to modif
 
 ```php
 try {
-    (new Dotenv\Dotenv(__DIR__.'/../', isset($dotEnvFile) ?: '.env'))->load();
+    (new Dotenv\Dotenv(__DIR__.'/../', isset($dotEnvFile) ? $dotEnvFile : '.env'))->load();
 } catch (Dotenv\Exception\InvalidPathException $e) {
     //
 }
